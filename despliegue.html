@@ -31,11 +31,16 @@
       <p><b>Responsable:</b> Walter Alexander Ramírez Benítez  · SMSS082124 </p>
       <p>El servidor oficial del equipo es la máquina virtual Debian de este rol. El sitio vive en <b>/var/www/html/pupuseria</b> y se publica desde un repositorio Git compartido.</p>
       <h4>1. Apache</h4>
-<pre class="cmd">sudo apt update
-sudo apt install -y apache2
-sudo systemctl enable --now apache2
-sudo systemctl status apache2
-hostname -I</pre>
+<pre class="cmd">walter@SoftwareLibreWalter :~ $ sudo apt install apache2
+[sudo] contrasena para walter:
+apache2 ya esta en su version mas reciente (2.4.69-1~deb13u1).
+El paquete indicado a continuacion se instalo de forma automatica y ya no es neces
+linux-image-6.12.107+deb13-amd64
+Utilice <sudo apt autoremove> para eliminarlo.
+
+Summary:
+Upgrading: 0, Installing: 0, Removing: 0, Not Upgrading: 61
+walter@SoftwareLibreWalter :~ $_</pre>
       <p>Página por defecto verificada en <b>http://[IP-DEL-SERVIDOR]</b>.</p>
       <h4>2. Git y prueba con AdminLTE</h4>
 <pre class="cmd">sudo apt install -y git
