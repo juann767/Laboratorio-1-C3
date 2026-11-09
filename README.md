@@ -15,7 +15,7 @@ Software Libre · Universidad Gerardo Barrios · Caso 2: Pupusería con pedidos 
 ```bash
 sudo apt install -y git
 sudo git clone https://github.com/juann767/pupuseria.git /tmp/pupuseria
-sudo bash /tmp/pupuseria/scripts/despliegue.sh https://github.com/Walt99/pupuseria.git
+sudo bash /tmp/pupuseria/scripts/despliegue.sh https://github.com/juann767/pupuseria.git
 sudo bash /var/www/html/pupuseria/scripts/seguridad.sh
 ```
 Actualizar cuando alguien sube cambios: `cd /var/www/html/pupuseria && sudo git pull`
