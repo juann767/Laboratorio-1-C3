@@ -28,49 +28,77 @@
     <h2>Seguridad</h2>
     <h3>Servidor FTP vsftpd y permisos</h3>
     <div class="bloque">
-      <p><b>Responsable:</b> Brandom Gamaliel Sánchez Guevara  · SMSS017424 </p>
-      <p>El servidor FTP del equipo es <b>vsftpd</b>. Cada integrante tiene su propia cuenta y solo puede escribir en <b>/var/www/html/pupuseria</b>. Todo se aplica con <b>seguridad.sh</b>.</p>
-      <h4>1. Instalación</h4>
-<pre class="cmd">sudo apt install -y vsftpd
-sudo cp /etc/vsftpd.conf /etc/vsftpd.conf.original
-sudo nano /etc/vsftpd.conf</pre>
-      <h4>2. Parámetros de /etc/vsftpd.conf</h4>
+      <p><b>Responsable:</b> Brandom Gamaliel Sánchez Guevara · SMSS017424 </p>
+      <p>El servidor FTP del equipo es <b>vsftpd 3.0.5</b> en la máquina <b>SoftwareLibreWalter</b> (IP <b>192.168.74.128</b>). Solo entran cuentas locales, sin acceso anónimo, y las cuentas de la lista de excepciones pueden llegar a /var/www/html.</p>
+      <h4>1. Instalación de vsftpd</h4>
+<pre class="cmd">walter@SoftwareLibreWalter:~$ sudo apt install vsftpd
+Installing:
+  vsftpd
+Summary:
+  Upgrading: 0, Installing: 1, Removing: 0, Not Upgrading: 61
+Des:1 http://deb.debian.org/debian trixie/main amd64 vsftpd amd64 3.0.5-0.2 [144 kB]
+Configurando vsftpd (3.0.5-0.2) ...
+Created symlink '/etc/systemd/system/multi-user.target.wants/vsftpd.service' → '/usr/lib/systemd/system/vsftpd.service'.</pre>
+      <h4>2. Configuración de /etc/vsftpd.conf</h4>
+<pre class="cmd">walter@SoftwareLibreWalter:~$ sudo nano /etc/vsftpd.conf
+
+listen=NO
+listen_ipv6=YES
+anonymous_enable=NO
+local_enable=YES
+write_enable=YES
+local_umask=022
+dirmessage_enable=YES
+ftpd_banner=Bienvenido al servidor FTP de Software Libre.
+chroot_local_user=YES
+chroot_list_enable=YES
+chroot_list_file=/etc/vsftpd.chroot_list</pre>
       <table class="tabla">
         <tr><th>Parámetro</th><th>Para qué</th></tr>
         <tr><td>anonymous_enable=NO</td><td>Nadie entra sin cuenta</td></tr>
         <tr><td>local_enable=YES</td><td>Entran las cuentas del sistema</td></tr>
         <tr><td>write_enable=YES</td><td>Permite subir archivos</td></tr>
-        <tr><td>local_umask=022</td><td>Archivos subidos quedan 644</td></tr>
-        <tr><td>ftpd_banner=Bienvenido al servidor FTP de Software Libre</td><td>Mensaje al conectarse</td></tr>
-        <tr><td>chroot_local_user=YES</td><td>Encierra a cada usuario en su carpeta</td></tr>
-        <tr><td>chroot_list_enable=YES<br />chroot_list_file=/etc/vsftpd.chroot_list</td><td>Excepciones: el equipo llega a /var/www/html</td></tr>
-        <tr><td>userlist_enable=YES<br />userlist_deny=NO</td><td>Solo las cuentas de /etc/vsftpd.userlist pueden entrar</td></tr>
+        <tr><td>local_umask=022</td><td>Archivos subidos quedan con permisos 644</td></tr>
+        <tr><td>ftpd_banner</td><td>Mensaje de bienvenida al iniciar sesión</td></tr>
+        <tr><td>chroot_local_user=YES</td><td>Limita a cada usuario a su carpeta personal</td></tr>
+        <tr><td>chroot_list_enable / chroot_list_file</td><td>Usuarios de la lista no quedan limitados y pueden llegar a /var/www/html</td></tr>
       </table>
-      <h4>3. Cuentas individuales</h4>
-<pre class="cmd">sudo groupadd webequipo
-sudo useradd -m -s /bin/bash -G webequipo despliegue
-sudo passwd despliegue
-# igual para: seguridad, desarrollo, basedatos, calidad
-printf "despliegue\nseguridad\ndesarrollo\nbasedatos\ncalidad\n" | sudo tee /etc/vsftpd.chroot_list /etc/vsftpd.userlist</pre>
-      <h4>4. Permisos en /var/www/html</h4>
-<pre class="cmd">sudo chown -R root:webequipo /var/www/html/pupuseria
-sudo find /var/www/html/pupuseria -type d -exec chmod 2775 {} \;
-sudo find /var/www/html/pupuseria -type f -exec chmod 664 {} \;
-sudo systemctl restart vsftpd
-sudo systemctl status vsftpd</pre>
-      <p>/var/www/html sigue siendo de root: el equipo solo escribe en la carpeta del caso. Las cuentas FTP no reciben sudo (mínimo privilegio).</p>
-      <h4>5. Pruebas de acceso seguro</h4>
-      <table class="tabla">
-        <tr><th>Prueba</th><th>Resultado esperado</th></tr>
-        <tr><td>FileZilla con cuenta del equipo, subir archivo a /var/www/html/pupuseria</td><td>Se sube y se ve en http://IP/pupuseria/archivo</td></tr>
-        <tr><td>Contraseña incorrecta</td><td>530 Login incorrect</td></tr>
-        <tr><td>Usuario anónimo</td><td>530 Permission denied</td></tr>
-        <tr><td>Cuenta del sistema fuera de la lista</td><td>530 Permission denied</td></tr>
-        <tr><td>Subir archivo directo a /var/www/html</td><td>553 Could not create file</td></tr>
-      </table>
-      <p>FileZilla: Servidor = IP del servidor, Puerto = 21, Usuario y Contraseña de la cuenta.</p>
-    </div>
+      <h4>3. Lista de excepciones</h4>
+<pre class="cmd">walter@SoftwareLibreWalter:~$ sudo nano /etc/vsftpd.chroot_list
 
+walter
+usuario1</pre>
+      <h4>4. Privilegios y permisos sobre /var/www/html</h4>
+<pre class="cmd">walter@SoftwareLibreWalter:~$ sudo usermod -aG sudo walter
+walter@SoftwareLibreWalter:~$ sudo chown walter /var/www/html
+walter@SoftwareLibreWalter:~$ sudo service vsftpd restart
+walter@SoftwareLibreWalter:~$ sudo service vsftpd status
+● vsftpd.service - vsftpd FTP server
+     Loaded: loaded (/usr/lib/systemd/system/vsftpd.service; enabled; preset: enabled)
+     Active: active (running) since Sun 2026-11-08 20:07:25 CST; 14s ago
+   Main PID: 6086 (vsftpd)
+     CGroup: /system.slice/vsftpd.service
+             └─6086 /usr/sbin/vsftpd /etc/vsftpd.conf</pre>
+      <h4>5. Dirección IP del servidor</h4>
+<pre class="cmd">walter@SoftwareLibreWalter:~$ sudo ifconfig
+ens33: flags=4163&lt;UP,BROADCAST,RUNNING,MULTICAST&gt;  mtu 1500
+        inet 192.168.74.128  netmask 255.255.255.0  broadcast 192.168.74.255</pre>
+      <h4>6. Prueba de acceso con FileZilla</h4>
+<pre class="cmd">Servidor: 192.168.74.128   Usuario: walter   Contraseña: ****   Puerto: 21
+
+Estado: Servidor no seguro, no soporta FTP sobre TLS.
+Estado: Registrado en
+Estado: Recuperando el listado del directorio...
+Estado: Directorio "/home/walter" listado correctamente</pre>
+      <table class="tabla">
+        <tr><th>Prueba</th><th>Resultado</th></tr>
+        <tr><td>Conexión con cuenta walter en 192.168.74.128</td><td class="ok">Registrado, listado de /home/walter</td></tr>
+        <tr><td>Subir archivo a /var/www/html y abrirlo en el navegador</td><td>[resultado]</td></tr>
+        <tr><td>Contraseña incorrecta</td><td>[resultado esperado: 530 Login incorrect]</td></tr>
+        <tr><td>Usuario anónimo</td><td>[resultado esperado: rechazado]</td></tr>
+      </table>
+      <p>FileZilla avisa que la conexión no usa TLS: usuario y contraseña viajan sin cifrar. Para producción se activaría <b>ssl_enable=YES</b> (FTPS).</p>
+    </div>
   </div>
   <!--left panel end -->
   <!--right panel start -->
