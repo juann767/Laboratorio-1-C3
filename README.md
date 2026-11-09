@@ -23,10 +23,8 @@ Actualizar cuando alguien sube cambios: `cd /var/www/html/pupuseria && sudo git 
 ## Equipo
 | Rol | Integrante | Código |
 |---|---|---|
-| Despliegue | [Nombre 1] | [Código 1] |
-| Seguridad | [Nombre 2] | [Código 2] |
-| Desarrollo | [Nombre 3] | [Código 3] |
-| Base de datos | [Nombre 4] | [Código 4] |
-| Calidad | [Nombre 5] | [Código 5] |
-
-Plantilla base: New Rise de Template World (Creative Commons Attribution 2.5).
+| Despliegue | Walter Alexander Ramírez Benítez | SMSS082124 |
+| Seguridad | Brandom Gamaliel Sánchez Guevara  | SMSS017424 |
+| Desarrollo | Franklin Aldahir Portillo Flores | SMSS011624 |
+| Base de datos | Diego Martín López Moreno     | SMSS097824 |
+| Calidad | Juan Ramón Espinal Coto             | SMSS102323 |
