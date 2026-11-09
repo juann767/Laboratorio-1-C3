@@ -29,7 +29,7 @@
     <h3>Pruebas de funcionamiento del sitio</h3>
     <div class="bloque">
       <p><b>Responsable:</b> Juan Ramón Espinal Coto  · SMSS102323 </p>
-      <p>Pruebas hechas sobre el servidor del equipo (<b>http://[IP-DEL-SERVIDOR]/pupuseria</b>) desde la VM y desde otra laptop conectada a la misma red. Cambiar «Pendiente» por <span class="ok">OK</span> o <span class="pendiente">Falla</span> y anotar la corrección.</p>
+      <p>Pruebas hechas sobre el servidor del equipo (<b>http://192.168.74.128/pupuseria</b>) desde la VM y desde otra laptop conectada a la misma red. Cambiar «Pendiente» por <span class="ok">OK</span> o <span class="pendiente">Falla</span> y anotar la corrección.</p>
       <table class="tabla">
         <tr><th>#</th><th>Prueba</th><th>Resultado esperado</th><th>Estado</th></tr>
         <tr><td>P01</td><td>Abrir http://IP/pupuseria desde la VM</td><td>Carga index.html con logo, menú y estilos</td><td class="pendiente">OK</td></tr>
@@ -40,7 +40,7 @@
         <tr><td>P06</td><td>Enlace Despliegue</td><td>Abre despliegue.html sin error 404</td><td class="pendiente">OK</td></tr>
         <tr><td>P07</td><td>Enlace Calidad</td><td>Abre calidad.html sin error 404</td><td class="pendiente">OK</td></tr>
         <tr><td>P08</td><td>Panel derecho «Secciones»</td><td>Los 5 enlaces abren la página correcta</td><td class="pendiente">OK</td></tr>
-        <tr><td>P09</td><td>Pie de página</td><td>Todos los enlaces funcionan</td><td class="pendiente">Pendiente</td></tr>
+        <tr><td>P09</td><td>Pie de página</td><td>Todos los enlaces funcionan</td><td class="pendiente">OK</td></tr>
         <tr><td>P10</td><td>Imágenes (logo, banner, fondos)</td><td>Se ven todas; ninguna rota</td><td class="pendiente">OK</td></tr>
         <tr><td>P11</td><td>Acentos y ñ (Pupusería, Menú)</td><td>Se muestran bien (UTF-8)</td><td class="pendiente">OK</td></tr>
         <tr><td>P12</td><td>Nombres y códigos del equipo</td><td>Completos y correctos en la portada</td><td class="pendiente">OK</td></tr>
@@ -48,7 +48,7 @@
         <tr><td>P14</td><td>Script verificar_sitio.sh</td><td>Todas las páginas responden 200</td><td class="pendiente">OK</td></tr>
       </table>
       <h4>Verificación automática de enlaces</h4>
-<pre class="cmd">bash verificar_sitio.sh [IP-DEL-SERVIDOR]</pre>
+<pre class="cmd">bash verificar_sitio.sh 192.168.74.128</pre>
     </div>
 
   </div>
