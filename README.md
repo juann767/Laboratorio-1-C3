@@ -14,8 +14,8 @@ Software Libre · Universidad Gerardo Barrios · Caso 2: Pupusería con pedidos 
 ## Publicar en el servidor (VM del rol Despliegue)
 ```bash
 sudo apt install -y git
-sudo git clone https://github.com/USUARIO/pupuseria.git /tmp/pupuseria
-sudo bash /tmp/pupuseria/scripts/despliegue.sh https://github.com/USUARIO/pupuseria.git
+sudo git clone https://github.com/juann767/pupuseria.git /tmp/pupuseria
+sudo bash /tmp/pupuseria/scripts/despliegue.sh https://github.com/walt99/pupuseria.git
 sudo bash /var/www/html/pupuseria/scripts/seguridad.sh
 ```
 Actualizar cuando alguien sube cambios: `cd /var/www/html/pupuseria && sudo git pull`
