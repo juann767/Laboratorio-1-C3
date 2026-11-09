@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8" />
+<title>Despliegue | Pupusería El Comal</title>
+<link href="style.css" rel="stylesheet" type="text/css" />
+<link href="extra.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<!--header start -->
+<div id="header"> <a href="index.html#pedidos" class="member">pedir</a> <img src="images/logo.gif" alt="Pupusería El Comal" />
+  <ul class="nav">
+    <li><a href="index.html">Inicio</a></li>
+    <li><a href="index.html#menu">Menú</a></li>
+    <li><a href="index.html#pedidos">Pedidos</a></li>
+    <li><a href="seguridad.html">Seguridad</a></li>
+    <li><a href="datos.html">Datos</a></li>
+    <li class="home">Despliegue</li>
+    <li><a href="calidad.html">Calidad</a></li>
+  </ul>
+</div>
+<!--header end -->
+<!--body start -->
+<div id="body">
+  <p class="top"></p>
+  <!--left panel start -->
+  <div id="left">
+    <h2>Despliegue</h2>
+    <h3>Servidor Apache y Git del equipo</h3>
+    <div class="bloque">
+      <p><b>Responsable:</b> [Nombre Integrante 1] · [Código 1]</p>
+      <p>El servidor oficial del equipo es la máquina virtual Debian de este rol. El sitio vive en <b>/var/www/html/pupuseria</b> y se publica desde un repositorio Git compartido.</p>
+      <h4>1. Apache</h4>
+<pre class="cmd">sudo apt update
+sudo apt install -y apache2
+sudo systemctl enable --now apache2
+sudo systemctl status apache2
+hostname -I</pre>
+      <p>Página por defecto verificada en <b>http://[IP-DEL-SERVIDOR]</b>.</p>
+      <h4>2. Git y prueba con AdminLTE</h4>
+<pre class="cmd">sudo apt install -y git
+cd /var/www/html
+sudo git clone https://github.com/samuelkno/AdminLTE.git</pre>
+      <p>Prueba: <b>http://[IP-DEL-SERVIDOR]/AdminLTE</b></p>
+      <h4>3. Sitio del caso</h4>
+<pre class="cmd">cd /var/www/html
+sudo git clone [URL-REPO-DEL-EQUIPO] pupuseria
+# actualizar cuando un compañero sube cambios:
+cd /var/www/html/pupuseria &amp;&amp; sudo git pull</pre>
+      <h4>4. Conexión del equipo</h4>
+      <ul>
+        <li>Adaptador de red de la VM en modo <b>puente (bridged)</b> para que las laptops del equipo lleguen a la IP.</li>
+        <li>Acceso por navegador (HTTP, puerto 80), por FTP (cuentas de Seguridad) y por Git.</li>
+      </ul>
+      <h4>5. Respaldo semanal</h4>
+<pre class="cmd">sudo /usr/local/bin/respaldo_pupuseria.sh
+ls -lh /var/backups/pupuseria/</pre>
+      <p>Programado en cron cada domingo a las 11:00 p.m. Guarda el sitio, la configuración de Apache y la de vsftpd, y conserva las últimas 8 copias.</p>
+      <table class="tabla">
+        <tr><th>Dato</th><th>Valor</th></tr>
+        <tr><td>IP del servidor</td><td>[IP-DEL-SERVIDOR]</td></tr>
+        <tr><td>URL del sitio</td><td>http://[IP-DEL-SERVIDOR]/pupuseria</td></tr>
+        <tr><td>Repositorio</td><td>[URL-REPO-DEL-EQUIPO]</td></tr>
+        <tr><td>Último respaldo</td><td>[fecha y nombre del .tar.gz]</td></tr>
+      </table>
+    </div>
+
+  </div>
+  <!--left panel end -->
+  <!--right panel start -->
+  <div id="right">
+    <h2>Horario</h2>
+    <p class="info">Lunes a domingo<br />4:00 p.m. a 10:00 p.m.<br />Pedidos para recoger o a domicilio.</p>
+    <h2 class="scope">Secciones</h2>
+    <ul>
+      <li><a href="despliegue.html">Despliegue</a></li>
+      <li><a href="seguridad.html">Seguridad</a></li>
+      <li><a href="index.html">Desarrollo</a></li>
+      <li><a href="datos.html">Base de datos</a></li>
+      <li><a href="calidad.html">Calidad y documentación</a></li>
+    </ul>
+    <a href="index.html#pedidos"><img src="images/banner.gif" alt="Pedidos en línea" width="157" height="146" border="0" class="banner" /></a>
+    <p class="bottom"> <a href="https://validator.w3.org/" class="xhtm"></a> <a href="https://jigsaw.w3.org/css-validator/" class="css"></a> </p>
+  </div>
+  <!--right panel end -->
+  <p class="bot"></p>
+  <br class="spacer" />
+</div>
+<!--body end -->
+<!--footer start -->
+<div id="footer">
+  <ul>
+    <li><a href="index.html">Inicio</a>|</li>
+    <li><a href="index.html#menu">Menú</a>|</li>
+    <li><a href="index.html#pedidos">Pedidos</a>|</li>
+    <li><a href="seguridad.html">Seguridad</a>|</li>
+    <li><a href="datos.html">Datos</a>|</li>
+    <li><a href="despliegue.html">Despliegue</a>|</li>
+    <li><a href="calidad.html">Calidad</a></li>
+  </ul>
+  <p class="copyright">&nbsp; Pupusería El Comal · Software Libre UGB · Caso 2</p>
+  <p class="design">Designed By: <a href="http://www.templateworld.com/" target="_blank" class="link">Template World</a></p>
+</div>
+<!--footer end -->
+</body>
+</html>

@@ -1,0 +1,59 @@
+/* Estilos agregados por el equipo (sobre la plantilla New Rise) */
+#left .bloque{
+	display:block;
+	width:385px;
+	float:left;
+	background-color:#F8EFD3;
+	color:#63562E;
+	font:normal 13px/18px "Trebuchet MS", Arial, Helvetica, sans-serif;
+	padding:14px 0 16px 0;
+}
+#left .bloque p{ margin:0 0 10px 0; }
+#left .bloque ul{ margin:0 0 10px 0; padding:0 0 0 18px; list-style-type:disc; }
+#left .bloque li{ margin:0 0 4px 0; }
+#left .bloque a{ color:#9C4D00; font-weight:bold; }
+#left .bloque a:hover{ color:#607800; }
+#left .bloque h4{
+	margin:6px 0 6px 0;
+	font:bold 14px/18px "Trebuchet MS", Arial, Helvetica, sans-serif;
+	color:#9C4D00;
+}
+table.tabla{
+	width:385px;
+	border-collapse:collapse;
+	margin:0 0 12px 0;
+	font:normal 12px/16px "Trebuchet MS", Arial, Helvetica, sans-serif;
+	color:#4A3F1F;
+}
+table.tabla th{
+	background-color:#9C4D00;
+	color:#FFFEEF;
+	text-align:left;
+	padding:5px 6px;
+}
+table.tabla td{
+	border-bottom:1px solid #E2D3A6;
+	padding:5px 6px;
+	vertical-align:top;
+	background-color:#FCF8EA;
+}
+table.tabla td.precio{ text-align:right; white-space:nowrap; }
+pre.cmd{
+	width:369px;
+	overflow:auto;
+	margin:0 0 12px 0;
+	padding:8px;
+	background-color:#2E2A1E;
+	color:#F3E9C6;
+	font:normal 11px/15px "Courier New", Courier, monospace;
+	white-space:pre-wrap;
+	word-wrap:break-word;
+}
+.pendiente{ color:#9C4D00; font-weight:bold; }
+.ok{ color:#4E7A00; font-weight:bold; }
+#right p.info{
+	width:140px;
+	margin:0 0 14px 18px;
+	font:normal 11px/16px Arial, Helvetica, sans-serif;
+	color:#63562E;
+}

@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8" />
+<title>Base de datos | Pupusería El Comal</title>
+<link href="style.css" rel="stylesheet" type="text/css" />
+<link href="extra.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<!--header start -->
+<div id="header"> <a href="index.html#pedidos" class="member">pedir</a> <img src="images/logo.gif" alt="Pupusería El Comal" />
+  <ul class="nav">
+    <li><a href="index.html">Inicio</a></li>
+    <li><a href="index.html#menu">Menú</a></li>
+    <li><a href="index.html#pedidos">Pedidos</a></li>
+    <li><a href="seguridad.html">Seguridad</a></li>
+    <li class="home">Datos</li>
+    <li><a href="despliegue.html">Despliegue</a></li>
+    <li><a href="calidad.html">Calidad</a></li>
+  </ul>
+</div>
+<!--header end -->
+<!--body start -->
+<div id="body">
+  <p class="top"></p>
+  <!--left panel start -->
+  <div id="left">
+    <h2>Base de datos</h2>
+    <h3>Diseño lógico: productos, clientes, pedidos</h3>
+    <div class="bloque">
+      <p><b>Responsable:</b> [Nombre Integrante 4] · [Código 4]</p>
+      <p>La pupusería necesita saber <b>qué vende</b> (productos), <b>a quién</b> (clientes) y <b>qué le pidieron</b> (pedidos). Cada fila de pedidos es un producto de una orden; las filas con el mismo <b>codigo_orden</b> forman la orden completa.</p>
+      <h4>Diagrama entidad-relación</h4>
+      <svg width="385" height="200" viewBox="0 0 385 200" xmlns="http://www.w3.org/2000/svg" font-family="Trebuchet MS, Arial, sans-serif" font-size="11">
+        <g fill="#FCF8EA" stroke="#9C4D00" stroke-width="1.5">
+          <rect x="5" y="10" width="120" height="62" rx="4"/>
+          <rect x="260" y="10" width="120" height="62" rx="4"/>
+          <rect x="132" y="120" width="120" height="74" rx="4"/>
+        </g>
+        <g fill="#9C4D00"><rect x="5" y="10" width="120" height="18" rx="4"/><rect x="260" y="10" width="120" height="18" rx="4"/><rect x="132" y="120" width="120" height="18" rx="4"/></g>
+        <g fill="#FFFEEF" font-weight="bold" text-anchor="middle"><text x="65" y="23">clientes</text><text x="320" y="23">productos</text><text x="192" y="133">pedidos</text></g>
+        <g fill="#4A3F1F">
+          <text x="12" y="44">PK id_cliente</text><text x="12" y="58">nombre, telefono…</text>
+          <text x="267" y="44">PK id_producto</text><text x="267" y="58">nombre, precio…</text>
+          <text x="139" y="154">PK id_pedido</text><text x="139" y="168">FK id_cliente</text><text x="139" y="182">FK id_producto</text>
+        </g>
+        <g stroke="#63562E" stroke-width="1.5" fill="none"><path d="M65 72 V100 H160 V120"/><path d="M320 72 V100 H224 V120"/></g>
+        <g fill="#9C4D00" font-weight="bold"><text x="70" y="88">1</text><text x="166" y="115">N</text><text x="308" y="88">1</text><text x="212" y="115">N</text></g>
+      </svg>
+      <p>Un cliente hace muchos pedidos (1:N). Un producto aparece en muchos pedidos (1:N).</p>
+      <h4>Tabla productos</h4>
+      <table class="tabla">
+        <tr><th>Campo</th><th>Tipo</th><th>Llave / regla</th></tr>
+        <tr><td>id_producto</td><td>INT UNSIGNED</td><td>PK, AUTO_INCREMENT</td></tr>
+        <tr><td>nombre</td><td>VARCHAR(80)</td><td>NOT NULL</td></tr>
+        <tr><td>categoria</td><td>ENUM(pupusa, bebida, extra)</td><td>NOT NULL</td></tr>
+        <tr><td>tipo_masa</td><td>ENUM(maiz, arroz, no_aplica)</td><td>único junto con nombre</td></tr>
+        <tr><td>precio</td><td>DECIMAL(6,2)</td><td>NOT NULL, &gt; 0</td></tr>
+        <tr><td>disponible</td><td>BOOLEAN</td><td>por defecto TRUE</td></tr>
+      </table>
+      <h4>Tabla clientes</h4>
+      <table class="tabla">
+        <tr><th>Campo</th><th>Tipo</th><th>Llave / regla</th></tr>
+        <tr><td>id_cliente</td><td>INT UNSIGNED</td><td>PK, AUTO_INCREMENT</td></tr>
+        <tr><td>nombre</td><td>VARCHAR(80)</td><td>NOT NULL</td></tr>
+        <tr><td>telefono</td><td>VARCHAR(15)</td><td>NOT NULL, UNIQUE</td></tr>
+        <tr><td>correo</td><td>VARCHAR(100)</td><td>opcional</td></tr>
+        <tr><td>direccion</td><td>VARCHAR(200)</td><td>opcional (domicilio)</td></tr>
+        <tr><td>fecha_registro</td><td>DATETIME</td><td>fecha actual</td></tr>
+      </table>
+      <h4>Tabla pedidos</h4>
+      <table class="tabla">
+        <tr><th>Campo</th><th>Tipo</th><th>Llave / regla</th></tr>
+        <tr><td>id_pedido</td><td>INT UNSIGNED</td><td>PK, AUTO_INCREMENT</td></tr>
+        <tr><td>codigo_orden</td><td>VARCHAR(12)</td><td>agrupa la orden (ORD-0001)</td></tr>
+        <tr><td>id_cliente</td><td>INT UNSIGNED</td><td>FK → clientes</td></tr>
+        <tr><td>id_producto</td><td>INT UNSIGNED</td><td>FK → productos</td></tr>
+        <tr><td>cantidad</td><td>SMALLINT UNSIGNED</td><td>&gt; 0</td></tr>
+        <tr><td>precio_unitario</td><td>DECIMAL(6,2)</td><td>precio al momento de pedir</td></tr>
+        <tr><td>tipo_entrega</td><td>ENUM(recoger, domicilio)</td><td>NOT NULL</td></tr>
+        <tr><td>direccion_entrega</td><td>VARCHAR(200)</td><td>solo si es domicilio</td></tr>
+        <tr><td>estado</td><td>ENUM(recibido, en_preparacion, listo, entregado, cancelado)</td><td>por defecto recibido</td></tr>
+        <tr><td>fecha_pedido</td><td>DATETIME</td><td>fecha actual</td></tr>
+      </table>
+      <p>Script completo con datos de ejemplo: <b>pupuseria.sql</b> (<code>sudo mariadb &lt; pupuseria.sql</code>). Si el negocio crece, una cuarta tabla <b>detalle_pedidos</b> separaría la orden de sus productos.</p>
+    </div>
+
+  </div>
+  <!--left panel end -->
+  <!--right panel start -->
+  <div id="right">
+    <h2>Horario</h2>
+    <p class="info">Lunes a domingo<br />4:00 p.m. a 10:00 p.m.<br />Pedidos para recoger o a domicilio.</p>
+    <h2 class="scope">Secciones</h2>
+    <ul>
+      <li><a href="despliegue.html">Despliegue</a></li>
+      <li><a href="seguridad.html">Seguridad</a></li>
+      <li><a href="index.html">Desarrollo</a></li>
+      <li><a href="datos.html">Base de datos</a></li>
+      <li><a href="calidad.html">Calidad y documentación</a></li>
+    </ul>
+    <a href="index.html#pedidos"><img src="images/banner.gif" alt="Pedidos en línea" width="157" height="146" border="0" class="banner" /></a>
+    <p class="bottom"> <a href="https://validator.w3.org/" class="xhtm"></a> <a href="https://jigsaw.w3.org/css-validator/" class="css"></a> </p>
+  </div>
+  <!--right panel end -->
+  <p class="bot"></p>
+  <br class="spacer" />
+</div>
+<!--body end -->
+<!--footer start -->
+<div id="footer">
+  <ul>
+    <li><a href="index.html">Inicio</a>|</li>
+    <li><a href="index.html#menu">Menú</a>|</li>
+    <li><a href="index.html#pedidos">Pedidos</a>|</li>
+    <li><a href="seguridad.html">Seguridad</a>|</li>
+    <li><a href="datos.html">Datos</a>|</li>
+    <li><a href="despliegue.html">Despliegue</a>|</li>
+    <li><a href="calidad.html">Calidad</a></li>
+  </ul>
+  <p class="copyright">&nbsp; Pupusería El Comal · Software Libre UGB · Caso 2</p>
+  <p class="design">Designed By: <a href="http://www.templateworld.com/" target="_blank" class="link">Template World</a></p>
+</div>
+<!--footer end -->
+</body>
+</html>

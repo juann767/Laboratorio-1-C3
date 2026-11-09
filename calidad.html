@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8" />
+<title>Calidad | Pupusería El Comal</title>
+<link href="style.css" rel="stylesheet" type="text/css" />
+<link href="extra.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<!--header start -->
+<div id="header"> <a href="index.html#pedidos" class="member">pedir</a> <img src="images/logo.gif" alt="Pupusería El Comal" />
+  <ul class="nav">
+    <li><a href="index.html">Inicio</a></li>
+    <li><a href="index.html#menu">Menú</a></li>
+    <li><a href="index.html#pedidos">Pedidos</a></li>
+    <li><a href="seguridad.html">Seguridad</a></li>
+    <li><a href="datos.html">Datos</a></li>
+    <li><a href="despliegue.html">Despliegue</a></li>
+    <li class="home">Calidad</li>
+  </ul>
+</div>
+<!--header end -->
+<!--body start -->
+<div id="body">
+  <p class="top"></p>
+  <!--left panel start -->
+  <div id="left">
+    <h2>Calidad</h2>
+    <h3>Pruebas de funcionamiento del sitio</h3>
+    <div class="bloque">
+      <p><b>Responsable:</b> [Nombre Integrante 5] · [Código 5]</p>
+      <p>Pruebas hechas sobre el servidor del equipo (<b>http://[IP-DEL-SERVIDOR]/pupuseria</b>) desde la VM y desde otra laptop conectada a la misma red. Cambiar «Pendiente» por <span class="ok">OK</span> o <span class="pendiente">Falla</span> y anotar la corrección.</p>
+      <table class="tabla">
+        <tr><th>#</th><th>Prueba</th><th>Resultado esperado</th><th>Estado</th></tr>
+        <tr><td>P01</td><td>Abrir http://IP/pupuseria desde la VM</td><td>Carga index.html con logo, menú y estilos</td><td class="pendiente">Pendiente</td></tr>
+        <tr><td>P02</td><td>Abrir el sitio desde otra laptop de la red</td><td>Carga igual que en la VM</td><td class="pendiente">Pendiente</td></tr>
+        <tr><td>P03</td><td>Menú superior: Inicio, Menú, Pedidos</td><td>Llevan a la portada y a sus secciones</td><td class="pendiente">Pendiente</td></tr>
+        <tr><td>P04</td><td>Enlace Seguridad</td><td>Abre seguridad.html sin error 404</td><td class="pendiente">Pendiente</td></tr>
+        <tr><td>P05</td><td>Enlace Datos</td><td>Abre datos.html sin error 404</td><td class="pendiente">Pendiente</td></tr>
+        <tr><td>P06</td><td>Enlace Despliegue</td><td>Abre despliegue.html sin error 404</td><td class="pendiente">Pendiente</td></tr>
+        <tr><td>P07</td><td>Enlace Calidad</td><td>Abre calidad.html sin error 404</td><td class="pendiente">Pendiente</td></tr>
+        <tr><td>P08</td><td>Panel derecho «Secciones»</td><td>Los 5 enlaces abren la página correcta</td><td class="pendiente">Pendiente</td></tr>
+        <tr><td>P09</td><td>Pie de página</td><td>Todos los enlaces funcionan</td><td class="pendiente">Pendiente</td></tr>
+        <tr><td>P10</td><td>Imágenes (logo, banner, fondos)</td><td>Se ven todas; ninguna rota</td><td class="pendiente">Pendiente</td></tr>
+        <tr><td>P11</td><td>Acentos y ñ (Pupusería, Menú)</td><td>Se muestran bien (UTF-8)</td><td class="pendiente">Pendiente</td></tr>
+        <tr><td>P12</td><td>Nombres y códigos del equipo</td><td>Completos y correctos en la portada</td><td class="pendiente">Pendiente</td></tr>
+        <tr><td>P13</td><td>Conexión FTP con FileZilla</td><td>Sube un archivo y se ve en el navegador</td><td class="pendiente">Pendiente</td></tr>
+        <tr><td>P14</td><td>Script verificar_sitio.sh</td><td>Todas las páginas responden 200</td><td class="pendiente">Pendiente</td></tr>
+      </table>
+      <h4>Verificación automática de enlaces</h4>
+<pre class="cmd">bash verificar_sitio.sh [IP-DEL-SERVIDOR]</pre>
+      <h4>Incidencias encontradas</h4>
+      <ul>
+        <li>[Describir la falla, quién la corrigió y cómo.]</li>
+      </ul>
+    </div>
+
+  </div>
+  <!--left panel end -->
+  <!--right panel start -->
+  <div id="right">
+    <h2>Horario</h2>
+    <p class="info">Lunes a domingo<br />4:00 p.m. a 10:00 p.m.<br />Pedidos para recoger o a domicilio.</p>
+    <h2 class="scope">Secciones</h2>
+    <ul>
+      <li><a href="despliegue.html">Despliegue</a></li>
+      <li><a href="seguridad.html">Seguridad</a></li>
+      <li><a href="index.html">Desarrollo</a></li>
+      <li><a href="datos.html">Base de datos</a></li>
+      <li><a href="calidad.html">Calidad y documentación</a></li>
+    </ul>
+    <a href="index.html#pedidos"><img src="images/banner.gif" alt="Pedidos en línea" width="157" height="146" border="0" class="banner" /></a>
+    <p class="bottom"> <a href="https://validator.w3.org/" class="xhtm"></a> <a href="https://jigsaw.w3.org/css-validator/" class="css"></a> </p>
+  </div>
+  <!--right panel end -->
+  <p class="bot"></p>
+  <br class="spacer" />
+</div>
+<!--body end -->
+<!--footer start -->
+<div id="footer">
+  <ul>
+    <li><a href="index.html">Inicio</a>|</li>
+    <li><a href="index.html#menu">Menú</a>|</li>
+    <li><a href="index.html#pedidos">Pedidos</a>|</li>
+    <li><a href="seguridad.html">Seguridad</a>|</li>
+    <li><a href="datos.html">Datos</a>|</li>
+    <li><a href="despliegue.html">Despliegue</a>|</li>
+    <li><a href="calidad.html">Calidad</a></li>
+  </ul>
+  <p class="copyright">&nbsp; Pupusería El Comal · Software Libre UGB · Caso 2</p>
+  <p class="design">Designed By: <a href="http://www.templateworld.com/" target="_blank" class="link">Template World</a></p>
+</div>
+<!--footer end -->
+</body>
+</html>

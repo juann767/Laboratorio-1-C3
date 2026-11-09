@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8" />
+<title>Seguridad | Pupusería El Comal</title>
+<link href="style.css" rel="stylesheet" type="text/css" />
+<link href="extra.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<!--header start -->
+<div id="header"> <a href="index.html#pedidos" class="member">pedir</a> <img src="images/logo.gif" alt="Pupusería El Comal" />
+  <ul class="nav">
+    <li><a href="index.html">Inicio</a></li>
+    <li><a href="index.html#menu">Menú</a></li>
+    <li><a href="index.html#pedidos">Pedidos</a></li>
+    <li class="home">Seguridad</li>
+    <li><a href="datos.html">Datos</a></li>
+    <li><a href="despliegue.html">Despliegue</a></li>
+    <li><a href="calidad.html">Calidad</a></li>
+  </ul>
+</div>
+<!--header end -->
+<!--body start -->
+<div id="body">
+  <p class="top"></p>
+  <!--left panel start -->
+  <div id="left">
+    <h2>Seguridad</h2>
+    <h3>Servidor FTP vsftpd y permisos</h3>
+    <div class="bloque">
+      <p><b>Responsable:</b> [Nombre Integrante 2] · [Código 2]</p>
+      <p>El servidor FTP del equipo es <b>vsftpd</b>. Cada integrante tiene su propia cuenta y solo puede escribir en <b>/var/www/html/pupuseria</b>. Todo se aplica con <b>seguridad.sh</b>.</p>
+      <h4>1. Instalación</h4>
+<pre class="cmd">sudo apt install -y vsftpd
+sudo cp /etc/vsftpd.conf /etc/vsftpd.conf.original
+sudo nano /etc/vsftpd.conf</pre>
+      <h4>2. Parámetros de /etc/vsftpd.conf</h4>
+      <table class="tabla">
+        <tr><th>Parámetro</th><th>Para qué</th></tr>
+        <tr><td>anonymous_enable=NO</td><td>Nadie entra sin cuenta</td></tr>
+        <tr><td>local_enable=YES</td><td>Entran las cuentas del sistema</td></tr>
+        <tr><td>write_enable=YES</td><td>Permite subir archivos</td></tr>
+        <tr><td>local_umask=022</td><td>Archivos subidos quedan 644</td></tr>
+        <tr><td>ftpd_banner=Bienvenido al servidor FTP de Software Libre</td><td>Mensaje al conectarse</td></tr>
+        <tr><td>chroot_local_user=YES</td><td>Encierra a cada usuario en su carpeta</td></tr>
+        <tr><td>chroot_list_enable=YES<br />chroot_list_file=/etc/vsftpd.chroot_list</td><td>Excepciones: el equipo llega a /var/www/html</td></tr>
+        <tr><td>userlist_enable=YES<br />userlist_deny=NO</td><td>Solo las cuentas de /etc/vsftpd.userlist pueden entrar</td></tr>
+      </table>
+      <h4>3. Cuentas individuales</h4>
+<pre class="cmd">sudo groupadd webequipo
+sudo useradd -m -s /bin/bash -G webequipo despliegue
+sudo passwd despliegue
+# igual para: seguridad, desarrollo, basedatos, calidad
+printf "despliegue\nseguridad\ndesarrollo\nbasedatos\ncalidad\n" | sudo tee /etc/vsftpd.chroot_list /etc/vsftpd.userlist</pre>
+      <h4>4. Permisos en /var/www/html</h4>
+<pre class="cmd">sudo chown -R root:webequipo /var/www/html/pupuseria
+sudo find /var/www/html/pupuseria -type d -exec chmod 2775 {} \;
+sudo find /var/www/html/pupuseria -type f -exec chmod 664 {} \;
+sudo systemctl restart vsftpd
+sudo systemctl status vsftpd</pre>
+      <p>/var/www/html sigue siendo de root: el equipo solo escribe en la carpeta del caso. Las cuentas FTP no reciben sudo (mínimo privilegio).</p>
+      <h4>5. Pruebas de acceso seguro</h4>
+      <table class="tabla">
+        <tr><th>Prueba</th><th>Resultado esperado</th></tr>
+        <tr><td>FileZilla con cuenta del equipo, subir archivo a /var/www/html/pupuseria</td><td>Se sube y se ve en http://IP/pupuseria/archivo</td></tr>
+        <tr><td>Contraseña incorrecta</td><td>530 Login incorrect</td></tr>
+        <tr><td>Usuario anónimo</td><td>530 Permission denied</td></tr>
+        <tr><td>Cuenta del sistema fuera de la lista</td><td>530 Permission denied</td></tr>
+        <tr><td>Subir archivo directo a /var/www/html</td><td>553 Could not create file</td></tr>
+      </table>
+      <p>FileZilla: Servidor = IP del servidor, Puerto = 21, Usuario y Contraseña de la cuenta.</p>
+    </div>
+
+  </div>
+  <!--left panel end -->
+  <!--right panel start -->
+  <div id="right">
+    <h2>Horario</h2>
+    <p class="info">Lunes a domingo<br />4:00 p.m. a 10:00 p.m.<br />Pedidos para recoger o a domicilio.</p>
+    <h2 class="scope">Secciones</h2>
+    <ul>
+      <li><a href="despliegue.html">Despliegue</a></li>
+      <li><a href="seguridad.html">Seguridad</a></li>
+      <li><a href="index.html">Desarrollo</a></li>
+      <li><a href="datos.html">Base de datos</a></li>
+      <li><a href="calidad.html">Calidad y documentación</a></li>
+    </ul>
+    <a href="index.html#pedidos"><img src="images/banner.gif" alt="Pedidos en línea" width="157" height="146" border="0" class="banner" /></a>
+    <p class="bottom"> <a href="https://validator.w3.org/" class="xhtm"></a> <a href="https://jigsaw.w3.org/css-validator/" class="css"></a> </p>
+  </div>
+  <!--right panel end -->
+  <p class="bot"></p>
+  <br class="spacer" />
+</div>
+<!--body end -->
+<!--footer start -->
+<div id="footer">
+  <ul>
+    <li><a href="index.html">Inicio</a>|</li>
+    <li><a href="index.html#menu">Menú</a>|</li>
+    <li><a href="index.html#pedidos">Pedidos</a>|</li>
+    <li><a href="seguridad.html">Seguridad</a>|</li>
+    <li><a href="datos.html">Datos</a>|</li>
+    <li><a href="despliegue.html">Despliegue</a>|</li>
+    <li><a href="calidad.html">Calidad</a></li>
+  </ul>
+  <p class="copyright">&nbsp; Pupusería El Comal · Software Libre UGB · Caso 2</p>
+  <p class="design">Designed By: <a href="http://www.templateworld.com/" target="_blank" class="link">Template World</a></p>
+</div>
+<!--footer end -->
+</body>
+</html>
