@@ -28,48 +28,69 @@
     <h2>Despliegue</h2>
     <h3>Servidor Apache y Git del equipo</h3>
     <div class="bloque">
-      <p><b>Responsable:</b> Walter Alexander Ramírez Benítez  · SMSS082124 </p>
-      <p>El servidor oficial del equipo es la máquina virtual Debian de este rol. El sitio vive en <b>/var/www/html/pupuseria</b> y se publica desde un repositorio Git compartido.</p>
+      <p><b>Responsable:</b> Walter Alexander Ramírez Benítez · SMSS082124</p>
+      <p>El servidor oficial del equipo es la máquina virtual <b>SoftwareLibreWalter</b> (Debian 13 «trixie», usuario <b>walter</b>). El sitio se publica desde el repositorio <a href="https://github.com/Waltt99/SoftwareLibre">github.com/Waltt99/SoftwareLibre</a>.</p>
       <h4>1. Apache</h4>
-<pre class="cmd">walter@SoftwareLibreWalter :~ $ sudo apt install apache2
-[sudo] contrasena para walter:
-apache2 ya esta en su version mas reciente (2.4.69-1~deb13u1).
-El paquete indicado a continuacion se instalo de forma automatica y ya no es neces
-linux-image-6.12.107+deb13-amd64
-Utilice <sudo apt autoremove> para eliminarlo.
-
+<pre class="cmd">walter@SoftwareLibreWalter:~$ sudo apt install apache2
+apache2 ya está en su versión más reciente (2.4.69-1~deb13u1).
 Summary:
-Upgrading: 0, Installing: 0, Removing: 0, Not Upgrading: 61
-walter@SoftwareLibreWalter :~ $_</pre>
-      <p>Página por defecto verificada en <b>http://127.0.1.1</b>.</p>
-      <h4>2. Git y prueba con AdminLTE</h4>
-<pre class="cmd">sudo apt install -y git
-cd /var/www/html
-sudo git clone https://github.com/Waltt99/SoftwareLibre.git</pre>
-      <p>Prueba: <b>http://127.0.1.1/AdminLTE</b></p>
-      <h4>3. Sitio del caso</h4>
-<pre class="cmd">cd /var/www/html
-sudo git clone https://github.com/Waltt99/SoftwareLibre.git pupuseria
-# actualizar cuando un compañero sube cambios:
-cd /var/www/html/pupuseria &amp;&amp; sudo git pull</pre>
-      <h4>4. Conexión del equipo</h4>
+  Upgrading: 0, Installing: 0, Removing: 0, Not Upgrading: 61
+
+walter@SoftwareLibreWalter:~$ sudo systemctl status apache2
+● apache2.service - The Apache HTTP Server
+     Loaded: loaded (/usr/lib/systemd/system/apache2.service; enabled; preset: enabled)
+     Active: active (running) since Sun 2026-11-08 18:14:43 CST; 14min ago
+   Main PID: 1358 (apache2)
+
+walter@SoftwareLibreWalter:~$ hostname -I
+[IP]</pre>
+      <p>En el navegador se abrió «Apache2 Debian Default Page – It works!».</p>
+      <h4>2. Git</h4>
+<pre class="cmd">walter@SoftwareLibreWalter:~$ sudo apt install git
+Installing:
+  git
+Installing dependencies:
+  git-man  liberror-perl  patch
+Configurando git (1:2.47.3-0+deb13u1) ...
+
+walter@SoftwareLibreWalter:~$ cd /var/www/html
+walter@SoftwareLibreWalter:/var/www/html$ git clone https://github.com/Waltt99/SoftwareLibre.git
+Clonando en 'SoftwareLibre'...</pre>
+      <h4>3. Servidor FTP</h4>
+<pre class="cmd">walter@SoftwareLibreWalter:~$ sudo apt install vsftpd
+Installing:
+  vsftpd
+Configurando vsftpd (3.0.5-0.2) ...
+Created symlink '/etc/systemd/system/multi-user.target.wants/vsftpd.service' → '/usr/lib/systemd/system/vsftpd.service'.</pre>
+      <p>En /etc/vsftpd.conf: write_enable=YES, local_umask=022, ftpd_banner=Bienvenido al servidor FTP de Software Libre., chroot_local_user=YES, chroot_list_enable=YES, chroot_list_file=/etc/vsftpd.chroot_list. Usuarios en /etc/vsftpd.chroot_list: <b>walter</b> y <b>usuario1</b>.</p>
+      <h4>4. Prueba con AdminLTE</h4>
+<pre class="cmd">walter@SoftwareLibreWalter:/var/www/html$ sudo git clone https://github.com/samuelkno/AdminLTE.git
+Clonando en 'AdminLTE'...</pre>
+      <p>Prueba: http://[IP]/AdminLTE</p>
+      <h4>5. Publicación del caso</h4>
+<pre class="cmd">walter@SoftwareLibreWalter:/var/www/html$ sudo git clone https://github.com/Waltt99/SoftwareLibre.git pupuseria
+Clonando en 'pupuseria'...
+# cuando un compañero sube cambios:
+walter@SoftwareLibreWalter:/var/www/html/pupuseria$ sudo git pull</pre>
+      <h4>6. Conexión del equipo</h4>
       <ul>
         <li>Adaptador de red de la VM en modo <b>puente (bridged)</b> para que las laptops del equipo lleguen a la IP.</li>
         <li>Acceso por navegador (HTTP, puerto 80), por FTP (cuentas de Seguridad) y por Git.</li>
       </ul>
-      <h4>5. Respaldo semanal</h4>
-<pre class="cmd">sudo /usr/local/bin/respaldo_pupuseria.sh
-ls -lh /var/backups/pupuseria/</pre>
+      <h4>7. Respaldo semanal</h4>
+<pre class="cmd">walter@SoftwareLibreWalter:~$ sudo /usr/local/bin/respaldo_pupuseria.sh
+Respaldo creado: /var/backups/pupuseria/pupuseria_[fecha].tar.gz</pre>
       <p>Programado en cron cada domingo a las 11:00 p.m. Guarda el sitio, la configuración de Apache y la de vsftpd, y conserva las últimas 8 copias.</p>
       <table class="tabla">
         <tr><th>Dato</th><th>Valor</th></tr>
-        <tr><td>IP del servidor</td><td>http://127.0.1.1</td></tr>
-        <tr><td>URL del sitio</td><td>http://http://127.0.1.1/pupuseria</td></tr>
-        <tr><td>Repositorio</td><td>https://github.com/Waltt99/SoftwareLibre.git</td></tr>
-        <tr><td>Último respaldo</td><td>[fecha y nombre del .tar.gz]</td></tr>
+        <tr><td>Servidor</td><td>SoftwareLibreWalter (Debian 13)</td></tr>
+        <tr><td>Apache / Git / vsftpd</td><td>2.4.69 / 2.47.3 / 3.0.5</td></tr>
+        <tr><td>IP del servidor</td><td>[IP]</td></tr>
+        <tr><td>URL del sitio</td><td>http://[IP]/pupuseria</td></tr>
+        <tr><td>Repositorio</td><td>https://github.com/Waltt99/SoftwareLibre</td></tr>
+        <tr><td>Último respaldo</td><td>pupuseria_[fecha].tar.gz</td></tr>
       </table>
     </div>
-
   </div>
   <!--left panel end -->
   <!--right panel start -->
